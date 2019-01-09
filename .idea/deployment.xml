@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="kim@129.254.73.118:22" deleteMissingItems="true" createEmptyFolders="true">
+    <serverData>
+      <paths name="kim@129.254.73.118:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/Temp/pycharm_project_666" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>
