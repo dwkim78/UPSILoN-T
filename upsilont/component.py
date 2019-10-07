@@ -7,35 +7,38 @@ import torch.nn.functional as F
 from torch.utils.data import Dataset
 
 
-class GenesisNet(nn.Module):
+class _CnnNet(nn.Module):
     """Convolution neural network for UPSILoN-T."""
 
-    def __init__(self, n_final: int=19):
+    def __init__(self, n_final: int=21):
         """
         Defines network structures.
 
         Args:
-            n_final: The number of features of the final layers.
+            n_final: (optional) The number of features of the final layers.
                 For the pre-trained model, 19. For the transferred model,
-                it is the number of classes of the target datasets.
+                it is the number of classes of the target samples.
         """
 
         super(Net, self).__init__()
 
         # Three convolution layers.
-        self.conv1 = nn.Conv2d(1, 9, 2, padding=1)
-        self.conv2 = nn.Conv2d(9, 18, 2, padding=1)
-        self.conv3 = nn.Conv2d(18, 36, 2, padding=1)
+        self.conv1 = nn.Conv2d(1, 64, 2, padding=1)
+        self.conv2 = nn.Conv2d(64, 128, 2, padding=1)
+        self.conv3 = nn.Conv2d(128, 256, 2, padding=1)
 
         # Three batch normal and three fully-connected layers.
         # For 4x4 matrix input shape.
-        self.bn0 = nn.BatchNorm1d(36 * 7 * 7)
-        self.fc1 = nn.Linear(36 * 7 * 7, 256)
-        self.bn1 = nn.BatchNorm1d(256)
-        self.fc2 = nn.Linear(256, 128)
-        self.bn2 = nn.BatchNorm1d(128)
-        self.fc3 = nn.Linear(128, n_final)
-        self.bn3 = nn.BatchNorm1d(n_final)
+        self.n_features = 256 * 7 * 7
+        self.bn1 = nn.BatchNorm1d(self.n_features)
+        self.fc1 = nn.Linear(self.n_features, 256)
+        # self.bn2 = nn.BatchNorm1d(1024)
+        # self.fc2 = nn.Linear(1024, 512)
+        self.bn3 = nn.BatchNorm1d(256)
+        self.fc3 = nn.Linear(256, 128)
+        self.bn4 = nn.BatchNorm1d(128)
+        self.fc4 = nn.Linear(128, n_final)
+        self.bn5 = nn.BatchNorm1d(n_final)
 
     def forward(self, x):
         """Forward module."""
@@ -46,146 +49,68 @@ class GenesisNet(nn.Module):
         x = self.conv3(x)
         x = F.relu(x)
 
-        # print(x.shape)
-        # For 4x4 matrix input shape.
-        x = x.view(-1, 36 * 7 * 7)
-        x = self.bn0(x)
+        # Flatten inputs.
+        x = x.view(-1, self.n_features)
+        x = self.bn1(x)
         x = self.fc1(x)
         x = F.relu(x)
-        x = self.bn1(x)
-        x = self.fc2(x)
-        x = F.relu(x)
-        x = self.bn2(x)
-        x = self.fc3(x)
+        # x = self.bn2(x)
+        # x = self.fc2(x)
+        # x = F.relu(x)
         x = self.bn3(x)
-
-        return x
-
-
-class CnnNet(nn.Module):
-    """Convolution neural network for UPSILoN-T."""
-
-    def __init__(self, n_final: int=19):
-        """
-        Defines network structures.
-
-        Args:
-            n_final: The number of features of the final layers.
-                For the pre-trained model, 19. For the transferred model,
-                it is the number of classes of the target datasets.
-        """
-
-        super(Net, self).__init__()
-
-        # Three convolution layers.
-        # self.conv1 = nn.Conv2d(1, 64, 2, padding=1)
-        # self.conv2 = nn.Conv2d(64, 128, 2, padding=1)
-        # self.conv3 = nn.Conv2d(128, 256, 2, padding=1)
-
-        self.conv1 = nn.Conv2d(1, 9, 2, padding=1)
-        self.conv2 = nn.Conv2d(9, 18, 2, padding=1)
-        self.conv3 = nn.Conv2d(18, 36, 2, padding=1)
-
-        # self.conv1 = nn.Conv2d(1, 9, (1, 4), padding=1)
-        # self.conv2 = nn.Conv2d(9, 18, (1, 4), padding=1)
-        # self.conv3 = nn.Conv2d(18, 36, (1, 4), padding=1)
-
-        # self.conv1 = nn.Conv2d(1, 9, (1, 2), padding=1)
-        # self.conv2 = nn.Conv2d(9, 18, (1, 2), padding=1)
-        # self.conv3 = nn.Conv2d(18, 36, (1, 2), padding=1)
-
-        # Three batch normal and three fully-connected layers.
-        # For 4x4 matrix input shape.
-        self.bn0 = nn.BatchNorm1d(36 * 7 * 7)
-        self.fc1 = nn.Linear(36 * 7 * 7, 256)
-        # For 1x16 matrix input shape. 2x2 kernel. Test usage only.
-        # self.bn0 = nn.BatchNorm1d(36 * 4 * 19)
-        # self.fc1 = nn.Linear(36 * 4 * 19, 256)
-        # For 1x16 matrix input shape. 1x4 kernel. Test usage only.
-        # self.bn0 = nn.BatchNorm1d(36 * 7 * 13)
-        # self.fc1 = nn.Linear(36 * 7 * 13, 256)
-        # For 1x16 matrix input shape. 1x4 kernel. Test usage only.
-        # self.bn0 = nn.BatchNorm1d(36 * 7 * 19)
-        # self.fc1 = nn.Linear(36 * 7 * 19, 256)
-
-        self.bn1 = nn.BatchNorm1d(256)
-        self.fc2 = nn.Linear(256, 128)
-        self.bn2 = nn.BatchNorm1d(128)
-        self.fc3 = nn.Linear(128, n_final)
-        self.bn3 = nn.BatchNorm1d(n_final)
-
-    def forward(self, x):
-        """Forward module."""
-        x = self.conv1(x)
-        x = F.relu(x)
-        x = self.conv2(x)
-        x = F.relu(x)
-        x = self.conv3(x)
-        x = F.relu(x)
-
-        # print(x.shape)
-        # For 4x4 matrix input shape.
-        x = x.view(-1, 36 * 7 * 7)
-        # For 1x16 matrix input shape. 2x2 kernel. Test usage only.
-        # x = x.view(-1, 36 * 4 * 19)
-        # For 1x16 matrix input shape. 1x4 kernel. Test usage only.
-        # x = x.view(-1, 36 * 7 * 13)
-        # For 1x16 matrix input shape. 1x2 kernel. Test usage only.
-        # x = x.view(-1, 36 * 7 * 19)
-
-        x = self.bn0(x)
-        x = self.fc1(x)
-        x = F.relu(x)
-        x = self.bn1(x)
-        x = self.fc2(x)
-        x = F.relu(x)
-        x = self.bn2(x)
         x = self.fc3(x)
-        x = self.bn3(x)
+        x = F.relu(x)
+        x = self.bn4(x)
+        x = self.fc4(x)
+        x = self.bn5(x)
 
         return x
 
 
 class Net(nn.Module):
-    """Deep neural network for UPSILoN-T."""
+    """Deep Neural Network for UPSILoN-T"""
 
-    def __init__(self, n_final: int=19):
+    def __init__(self, n_final: int=21):
         """
         Defines network structures.
 
         Args:
             n_final: The number of features of the final layers.
-                For the pre-trained model, 19. For the transferred model,
+                For the pre-trained model, 21. For the transferred model,
                 it is the number of classes of the target datasets.
         """
 
         super(Net, self).__init__()
 
-        # Three batch normal and three fully-connected layers.
-        self.bn0 = nn.BatchNorm1d(16, 32)
+        # Batch normal and fully-connected layers.
+        self.bn1 = nn.BatchNorm1d(16, 32)
         self.fc1 = nn.Linear(16, 32)
-        self.bn1 = nn.BatchNorm1d(32)
-        # self.fc2 = nn.Linear(32, 64)
-        # self.bn2 = nn.BatchNorm1d(64)
-        self.fc3 = nn.Linear(32, n_final)
-        self.bn3 = nn.BatchNorm1d(n_final)
+        self.bn2 = nn.BatchNorm1d(32)
+        self.fc2 = nn.Linear(32, 64)
+        self.bn3 = nn.BatchNorm1d(64)
+        self.fc3 = nn.Linear(64, 128)
+        self.bn4 = nn.BatchNorm1d(128)
+        self.fc4 = nn.Linear(128, n_final)
+        self.bn5 = nn.BatchNorm1d(n_final)
 
     def forward(self, x):
         """Forward module."""
 
-        # print(x.shape)
-        # For 4x4 matrix input shape.
+        # Flatten inputs.
         x = x.view(-1, 16)
 
-        x = self.bn0(x)
+        x = self.bn1(x)
         x = self.fc1(x)
         x = F.relu(x)
-        # x = self.bn1(x)
-        # x = self.fc2(x)
-        # x = F.relu(x)
-        # x = self.bn2(x)
-        x = self.fc3(x)
+        x = self.bn2(x)
+        x = self.fc2(x)
+        x = F.relu(x)
         x = self.bn3(x)
+        x = self.fc3(x)
+        x = F.relu(x)
+        x = self.bn4(x)
+        x = self.fc4(x)
+        x = self.bn5(x)
 
         return x
 
@@ -220,7 +145,7 @@ class LightCurveDataset(Dataset):
 
         # Reshape into 4 by 4 matrix.
         # sample_features = self.features[idx].reshape(1, 4, 4)
-        # Reshape into 1 by 16 matrix. Test usage only.
+        # Reshape into 1 by 16 matrix.
         sample_features = self.features[idx].reshape(1, 1, 16)
         sample_labels = self.labels[idx]
         if self.ids is not None:
@@ -230,5 +155,3 @@ class LightCurveDataset(Dataset):
             return sample_features, sample_labels, sample_ids
         else:
             return sample_features, sample_labels
-
-

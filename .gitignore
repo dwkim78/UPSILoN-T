@@ -102,12 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-.idea/UPSILoN-T.iml
-.idea/encodings.xml
-.idea/inspectionProfiles/
-.idea/misc.xml
-.idea/modules.xml
-.idea/workspace.xml
-.idea/vcs.xml
+.idea/
 /upsilont/test/
 /upsilont/plot/
+/upsilont/extract_features
+.DS_Store
+.idea/deployment.xml
