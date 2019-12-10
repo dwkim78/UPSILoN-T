@@ -8,7 +8,7 @@ import pandas as pd
 import torch.nn as nn
 import torch.optim as optim
 
-from sklearn.metrics import matthews_corrcoef
+from sklearn.metrics import matthews_corrcoef, f1_score
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 
@@ -525,8 +525,9 @@ class UPSILoNT:
                     running_loss += loss.item()
 
                 # Calculate training f1.
-                training_f1 = matthews_corrcoef(true_label, predicted_label,
-                                       average=f1_average)
+                # training_f1 = f1_score(true_label, predicted_label,
+                #                        average=f1_average)
+                training_f1 = matthews_corrcoef(true_label, predicted_label)
 
                 # Get test-set performance
                 val_loss = 0.
@@ -547,8 +548,10 @@ class UPSILoNT:
                     predicted_label += outputs_numpy.tolist()
                     true_label += test_numpy.tolist()
 
-                test_f1 = matthews_corrcoef(true_label, predicted_label,
-                                   average=f1_average)
+                # test_f1 = matthews_corrcoef(true_label, predicted_label,
+                #                    average=f1_average)
+                test_f1 = matthews_corrcoef(true_label, predicted_label)
+
                 curr_f1 = test_f1
 
                 if verbose:

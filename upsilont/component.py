@@ -20,7 +20,7 @@ class _CnnNet(nn.Module):
                 it is the number of classes of the target samples.
         """
 
-        super(Net, self).__init__()
+        super(_CnnNet, self).__init__()
 
         # Three convolution layers.
         self.conv1 = nn.Conv2d(1, 64, 2, padding=1)
@@ -83,14 +83,14 @@ class Net(nn.Module):
         super(Net, self).__init__()
 
         # Batch normal and fully-connected layers.
-        self.bn1 = nn.BatchNorm1d(16, 32)
-        self.fc1 = nn.Linear(16, 32)
-        self.bn2 = nn.BatchNorm1d(32)
-        self.fc2 = nn.Linear(32, 64)
-        self.bn3 = nn.BatchNorm1d(64)
-        self.fc3 = nn.Linear(64, 128)
-        self.bn4 = nn.BatchNorm1d(128)
-        self.fc4 = nn.Linear(128, n_final)
+        self.bn1 = nn.BatchNorm1d(16, 64)
+        self.fc1 = nn.Linear(16, 64)
+        self.bn2 = nn.BatchNorm1d(64)
+        self.fc2 = nn.Linear(64, 128)
+        self.bn3 = nn.BatchNorm1d(128)
+        self.fc3 = nn.Linear(128, 256)
+        self.bn4 = nn.BatchNorm1d(256)
+        self.fc4 = nn.Linear(256, n_final)
         self.bn5 = nn.BatchNorm1d(n_final)
 
     def forward(self, x):
