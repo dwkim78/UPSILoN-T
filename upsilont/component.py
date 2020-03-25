@@ -23,19 +23,19 @@ class _CnnNet(nn.Module):
         super(_CnnNet, self).__init__()
 
         # Three convolution layers.
-        self.conv1 = nn.Conv2d(1, 64, 2, padding=1)
-        self.conv2 = nn.Conv2d(64, 128, 2, padding=1)
-        self.conv3 = nn.Conv2d(128, 256, 2, padding=1)
+        self.conv1 = nn.Conv2d(1, 128, 2, padding=1)
+        self.conv2 = nn.Conv2d(128, 256, 2, padding=1)
+        self.conv3 = nn.Conv2d(256, 512, 2, padding=1)
 
         # Three batch normal and three fully-connected layers.
         # For 4x4 matrix input shape.
-        self.n_features = 256 * 7 * 7
+        self.n_features = 512 * 7 * 7
         self.bn1 = nn.BatchNorm1d(self.n_features)
-        self.fc1 = nn.Linear(self.n_features, 256)
-        # self.bn2 = nn.BatchNorm1d(1024)
-        # self.fc2 = nn.Linear(1024, 512)
-        self.bn3 = nn.BatchNorm1d(256)
-        self.fc3 = nn.Linear(256, 128)
+        self.fc1 = nn.Linear(self.n_features, 1024)
+        self.bn2 = nn.BatchNorm1d(1024)
+        self.fc2 = nn.Linear(1024, 512)
+        self.bn3 = nn.BatchNorm1d(512)
+        self.fc3 = nn.Linear(512, 128)
         self.bn4 = nn.BatchNorm1d(128)
         self.fc4 = nn.Linear(128, n_final)
         self.bn5 = nn.BatchNorm1d(n_final)
@@ -54,9 +54,9 @@ class _CnnNet(nn.Module):
         x = self.bn1(x)
         x = self.fc1(x)
         x = F.relu(x)
-        # x = self.bn2(x)
-        # x = self.fc2(x)
-        # x = F.relu(x)
+        x = self.bn2(x)
+        x = self.fc2(x)
+        x = F.relu(x)
         x = self.bn3(x)
         x = self.fc3(x)
         x = F.relu(x)
@@ -102,12 +102,15 @@ class Net(nn.Module):
         x = self.bn1(x)
         x = self.fc1(x)
         x = F.relu(x)
+
         x = self.bn2(x)
         x = self.fc2(x)
         x = F.relu(x)
+
         x = self.bn3(x)
         x = self.fc3(x)
         x = F.relu(x)
+
         x = self.bn4(x)
         x = self.fc4(x)
         x = self.bn5(x)

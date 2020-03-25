@@ -1,7 +1,7 @@
 # UPSILoN-T
 
 <div align="center">
-<img src="./upsilont/images/logo.png"><br/>
+<img src="./upsilont/datasets/images/logo.png"><br/>
 [ UPSILoN-T ]
 </div><br>
 
@@ -17,7 +17,7 @@ UPSILoN-T (UPSILoN Using <b>T</b>ransfer Learning) is the successor to [UPSILoN]
 
 ## Requirement
 
-- PyTorch 1.2+ with CUDA support.
+- PyTorch 1.4+ with CUDA support.
     - https://pytorch.org/
 - Scikit-Learn, Numpy, Scipy
     - If not installed, UPSILoN-T will automatically install them.

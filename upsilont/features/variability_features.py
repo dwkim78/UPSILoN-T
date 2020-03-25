@@ -159,6 +159,9 @@ class VariabilityFeatures:
         else:
             self.min_period = min_period
 
+        # Extract features.
+        self.run()
+
     def run(self):
         """Run feature extraction modules."""
 
@@ -203,7 +206,7 @@ class VariabilityFeatures:
 
         # Percentile features.
         self.quartile31 = np.percentile(self.mag, 75) - \
-            - np.percentile(self.mag, 25)
+                          np.percentile(self.mag, 25)
 
         # Stetson K.
         self.stetson_k = self.get_stetson_k(self.mag, self.median, self.err)
