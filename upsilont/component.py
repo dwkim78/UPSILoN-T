@@ -83,6 +83,40 @@ class Net(nn.Module):
         super(Net, self).__init__()
 
         # Batch normal and fully-connected layers.
+        self.bn4 = nn.BatchNorm1d(16, n_final)
+        self.fc4 = nn.Linear(32, n_final)
+        self.bn5 = nn.BatchNorm1d(n_final)
+
+    def forward(self, x):
+        """Forward module."""
+
+        # Flatten inputs.
+        x = x.view(-1, 16)
+
+        x = self.bn4(x)
+        x = self.fc4(x)
+        x = F.relu(x)
+        x = self.bn5(x)
+
+        return x
+
+
+class _Net(nn.Module):
+    """Deep Neural Network for UPSILoN-T"""
+
+    def __init__(self, n_final: int=21):
+        """
+        Defines network structures.
+
+        Args:
+            n_final: The number of features of the final layers.
+                For the pre-trained model, 21. For the transferred model,
+                it is the number of classes of the target datasets.
+        """
+
+        super(Net, self).__init__()
+
+        # Batch normal and fully-connected layers.
         self.bn1 = nn.BatchNorm1d(16, 64)
         self.fc1 = nn.Linear(16, 64)
         self.bn2 = nn.BatchNorm1d(64)
