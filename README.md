@@ -59,19 +59,15 @@ logger.info('Extract variability features.')
 
 feature_list = []
 for i in range(1):
-    start = time.time()
-    var_features = VariabilityFeatures(date, mag, err)
-    features = var_features.get_features()
-    # for key, value in features.items():
-    #     print('   %s: %f' % (key, value))
-    feature_list.append(features)
+    var_features = VariabilityFeatures(date, mag, err).get_features()
+    feature_list.append(var_features)
 
 logger.info('Convert to Pandas DataFrame.')
-pd_features = pd.DataFrame(feature_list)
+features = pd.DataFrame(feature_list)
 
 logger.info('Predict Using UPSILoN-T.')
 ut = UPSILoNT(logger=logger)
-label, prob = ut.predict(pd_features, return_prob=True)
+label, prob = ut.predict(features, return_prob=True)
 
 logger.info('Predicted Class: {0}'.format(label))
 logger.info('Done.')
@@ -104,12 +100,8 @@ err = ...
 
 feature_list = []
 for i in range(1):
-    start = time.time()
-    var_features = VariabilityFeatures(date, mag, err)
-    features = var_features.get_features()
-    # for key, value in features.items():
-    #     print('   %s: %f' % (key, value))
-    feature_list.append(features)
+    var_features = VariabilityFeatures(date, mag, err).get_features()
+    feature_list.append(var_features)
 ```
 
 We add 16 variability features of each light-curve to a list ```feature_list```, which is an input for UPSILoN-T prediction function. The above code shows an example for a single light-curve. If one has many light-curves, he/she has to append the extracted variability features to ```feature_list```. 
@@ -120,11 +112,11 @@ Once we build a list of variability features, ```feature_list```, we can use UPS
 
 ```python
 # Convert to Pandas DataFrame.
-pd_features = pd.DataFrame(feature_list)
+features = pd.DataFrame(feature_list)
 
 # Predict.
 ut = UPSILoNT()
-label, prob = ut.predict(pd_features, return_prob=True)
+label, prob = ut.predict(features, return_prob=True)
 ```
 
 We need to convert ```feature_list``` to Pandas Dataframe as shown in the code. The ```label``` is a list of predicted variable classes, and ```prob``` is a list of probabilities for all classes.
@@ -141,7 +133,7 @@ ut = UPSILoNT('cuda:0')
 ut.transfer(features, labels, '/path/to/outputs/')
 ```
 
-The function ```ut.transfer``` has many parameters can be tuned as follows:
+The function ```ut.transfer``` has several parameters can be tuned as follows:
 
 | Parameter     | Description           |
 | -------------: |:---------------------|
@@ -159,15 +151,15 @@ Based on the parameter settings, transferred results could vary a lot.
 
 ### Training From Scratch
 
-If there are enough samples to train a network from scratch, it is recommended to train a network from scratch as follows:
+If there are enough light-curves to train a network from scratch, it is recommended to train a network from scratch as follows:
 
 ```python
 ut = UPSILoNT()
-ut.train(features, labels, '/home/kim/Temp/dnn_32',
+ut.train(features, labels, '/path/to/outputs/',
          n_iter=30, n_epoch=500)
 ```
 
-In this case, we recommend to use ```n_iter``` and ```n_epoch``` larger than the default values since the optimization of network starts from random initialization of weights. The function ```ut.train``` has the same parameters as the function ```ut.transfer```. You can tune the parameters to get a model showing the best classification performances. 
+In this case, we recommend to set ```n_iter``` and ```n_epoch``` larger than the default values since the optimization of network starts from random initialization of weights. The function ```ut.train``` has the same parameters as the function ```ut.transfer```. You can tune the parameters to get a model showing the best classification performances. 
 
 
 ## ChangeLog
