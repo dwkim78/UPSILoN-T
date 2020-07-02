@@ -172,7 +172,7 @@ In this case, we recommend to set ```n_iter``` and ```n_epoch``` larger than the
 
 ## Citation
 
-If you use UPSILoN-T in publication, we would appreciate citations to the paper, [Kim et al. 2020](), which is based on the UPSILoN-T version 0.1.0.
+If you use UPSILoN-T in publication, we would appreciate citations to the paper, [Kim et al. 2020 (in Progress)](), which is based on the UPSILoN-T version 0.1.0.
 
 
 ## Contact
