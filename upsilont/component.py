@@ -67,7 +67,8 @@ class _CnnNet(nn.Module):
         return x
 
 
-class Net(nn.Module):
+# Temporary model.
+class _Net(nn.Module):
     """Deep Neural Network for UPSILoN-T"""
 
     def __init__(self, n_final: int=21):
@@ -80,7 +81,7 @@ class Net(nn.Module):
                 it is the number of classes of the target datasets.
         """
 
-        super(Net, self).__init__()
+        super(_Net, self).__init__()
 
         # Batch normal and fully-connected layers.
         self.bn4 = nn.BatchNorm1d(16, n_final)
@@ -101,7 +102,7 @@ class Net(nn.Module):
         return x
 
 
-class _Net(nn.Module):
+class Net(nn.Module):
     """Deep Neural Network for UPSILoN-T"""
 
     def __init__(self, n_final: int=21):
