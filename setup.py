@@ -8,7 +8,7 @@ def readme():
 
 setup(
     name='upsilont',
-    version='0.0.1',
+    version='0.1.0',
     description='UPSILoN-T',
     long_description=readme(),
     platforms=['any'],

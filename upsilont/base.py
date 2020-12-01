@@ -31,7 +31,13 @@ def apply_log10(x, min_x=None):
         min_x = np.min(x)
 
     x -= min_x
+
+    # original.
     x = x.replace(0., 1e-10)
+
+    # new.
+    # x += 1.
+
     x = np.log10(x)
 
     return x, min_x
@@ -184,9 +190,13 @@ class UPSILoNT:
                         self.min_values['min_slope_per90'])
         features_in = np.array(features_in)
 
-        # Normalize.
+        # original.
         features_norm = (features_in - self.norm_params[0]) / \
                         self.norm_params[1]
+
+        # new.
+        # features_norm = features_in - self.norm_params[0]
+        # features_norm /= self.norm_params[1]
 
         # Build a dataset with dummy labels.
         labels = np.random.randn(len(features_norm))
@@ -413,7 +423,15 @@ class UPSILoNT:
         # Normalize.
         features_median = np.median(features, axis=0)
         features_std = np.std(features, axis=0)
+
+        # original.
         features_norm = (features - features_median) / features_std
+
+        # new.
+        # features_min = np.min(features, axis=0)
+        # features_max = np.max(features, axis=0)
+        # features_norm = features - features_min
+        # features_norm /= features_max
 
         # Save the number of features at the last layers.
         if out_features is None:
@@ -426,7 +444,10 @@ class UPSILoNT:
             output_folder, 'n_final.pkl'), 'wb'))
 
         # Save the values for later usage (e.g. prediction).
+        # original.
         self.norm_params = [features_median, features_std]
+        # new.
+        # self.norm_params = [features_min, features_max]
         pickle.dump(self.norm_params, open(os.path.join(
             output_folder, 'norm_params.pkl'), 'wb'))
 
