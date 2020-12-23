@@ -507,7 +507,8 @@ class UPSILoNT:
                 shuffle = True
 
             # Build data loaders.
-            batch_size = 1024
+            # batch_size = 1024
+            batch_size = 10240
             trainloader = torch.utils.data.DataLoader(
                 trainset, batch_size=batch_size, shuffle=shuffle,
                 sampler=train_sampler, num_workers=2)
@@ -1065,5 +1066,4 @@ class UPSILoNT:
                           feature_names=column_names,
                           class_names=labels)
 
-        # pl.show()
         pl.savefig('/home/kim/Temp/SHAP_temp.eps')
