@@ -38,8 +38,8 @@ In addition, GPU is required to use the UPSILoN-T package.
 ## 2. Installation
 
 - Register for the ETRI OSS GitLab repository, https://etrioss.kr/
-- Ask permission to D.-W. Kim (dwk@etri.er.kr) or D. Yeo (yeody@etri.re.kr)
-- Access to https://etrioss.kr/ksb/upsilon-t
+- Contact D.-W. Kim (dwk@etri.er.kr) or D. Yeo (yeody@etri.re.kr) for access permission.
+- Check if you can access to https://etrioss.kr/ksb/upsilon-t
 - Install the package as follows.
 
 ```python
