@@ -10,10 +10,32 @@ UPSILoN-T aims to classify periodic variable stars using deep learning and trans
 
 ## Index
 
-1. [Installation](#1-installation)
-2. [How to Use UPSILoN-T](#2-usage)
+1. [Dependency](#1-dependency)
+2. [Installation](#2-installation)
+3. [How to Use UPSILoN-T](#3-usage)
 
-## 1. Installation
+
+## 1. Dependency
+[Python 3.6+](https://www.python.org/)
+
+[PyTorch 1.6+](https://pytorch.org/)
+
+[Numpy 1.17+](http://www.numpy.org/)
+
+[Scipy 1.3+](http://scipy.org/)
+
+[scikit-learn 0.22](http://scikit-learn.org/stable/)
+
+[pyFFTW 0.10.4+](http://hgomersall.github.io/pyFFTW/)
+
+ * pyFFTW is optional but <b>highly recommended</b> for multi-threads usage for FFT. You will need to install [FFTW](http://www.fftw.org/) as well prior to installation of pyFFTW.
+
+These libraries (except pyFFTW) will be automatically installed if your machines do not have them yet. In the case you encounter errors during the installation of the dependencies, try to install them individually. Your machine may not have other necessary libraries that are required by the dependencies.
+
+In addition, GPU is required to use the UPSILoN-T package.
+
+
+## 2. Installation
 
 - Register for the ETRI OSS GitLab repository, https://etrioss.kr/
 - Ask permission to D.-W. Kim (dwk@etri.er.kr) or D. Yeo (yeody@etri.re.kr)
@@ -24,9 +46,8 @@ UPSILoN-T aims to classify periodic variable stars using deep learning and trans
 pip install git+https://etrioss.kr/ksb/upsilon-t
 ```
 
-In order to use the UPSILoN-T package, GPU is required. 
 
-## 2. Usage
+## 3. Usage
 
 You can test UPSILoN-T package as follow.
 
