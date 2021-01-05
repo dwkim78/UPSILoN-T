@@ -13,7 +13,6 @@ UPSILoN-T aims to classify periodic variable stars using deep learning and trans
 1. [Installation](#1-installation)
 2. [How to Use UPSILoN-T](#2-usage)
 
-
 ## 1. Installation
 
 - Register for the ETRI OSS GitLab repository, https://etrioss.kr/
@@ -25,6 +24,7 @@ UPSILoN-T aims to classify periodic variable stars using deep learning and trans
 pip install git+https://etrioss.kr/ksb/upsilon-t
 ```
 
+In order to use the UPSILoN-T package, GPU is required. 
 
 ## 2. Usage
 
