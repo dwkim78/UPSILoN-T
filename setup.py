@@ -1,16 +1,11 @@
 from setuptools import find_packages, setup
 
 
-def readme():
-    with open('README.rst') as f:
-        return f.read()
-
-
 setup(
     name='upsilont',
     version='0.1.0',
     description='UPSILoN-T',
-    long_description=readme(),
+    long_description='',
     platforms=['any'],
     packages=find_packages(),
     include_package_data=True,
