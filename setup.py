@@ -18,7 +18,7 @@ setup(
     license='Apache v2.0',
     author='Dae-Won Kim',
     author_email='dwk@etri.re.kr',
-    install_requires=['scikit-learn>=0.22', 'numpy>=1.17',
+    install_requires=['scikit-learn==0.22', 'numpy>=1.17',
                       'scipy>=1.3', 'pandas>=0.25'],
     keywords=['Machine Learning', 'Periodic Variable Stars', 'Time Series'],
     classifiers=[

@@ -458,7 +458,7 @@ class UPSILoNT:
 
         # Save the label encoder.
         self.label_encoder = le
-        pickle.dump( self.label_encoder, open(os.path.join(
+        pickle.dump(self.label_encoder, open(os.path.join(
             output_folder, 'label_encoder.pkl'), 'wb'))
 
         # Derive class weight by its frequency.
