@@ -53,9 +53,74 @@ yyyy-mm-dd hh:mm:ss,sss [test.py:42] INFO - Done.
 
 ### 2.1 Predict Variable Classes
 
+The following pseudocode shows how to use the package to extract variability features from a set of light-curves and then to predict their variable classes.
+
+```python
+from upsilont import UPSILoNT
+from upsilont.features import VariabilityFeatures
+
+# Extract features from a set of light-curves. 
+feature_list = []
+for light_curve in set_of_light_curves:
+
+    # Read a light-curve.
+    date = np.array([:])
+    mag = np.array([:])
+    err = np.array([:])
+         
+    # Extract features.
+    var_features = VariabilityFeatures(date, mag, err).get_features()
+    
+    # Append to the list.
+    feature_list.append(var_features)
+
+# Convert to Pandas DataFrame.
+features = pd.DataFrame(feature_list)
+    
+# Classify.
+ut = UPSILoNT()
+label, prob = ut.predict(features, return_prob=True)
+```
+```label``` and ```prob``` is a list of predicted classes and class probabilities, respectively. 
+
 ### 2.2 Transfer UPSILoN-T
 
+```python
+# Get features and labels.
+features = ...
+labels = ...
+
+# Transfer UPSILoN-T.
+ut = UPSILoNT()
+ut.transfer(features, labels, "/path/to/transferred/model/")
+```
+
+```features``` is a list of features extracted from a set of light-curves, and ```labels``` is a list of corresponding labels. The package writes the transferred model and other model-related parameters to a specified location (i.e. ```/path/to/transferred/model/``` in the above pseudocode). You can load the transferred model:
+
+```python
+ut = UPSILoNT()
+ut.load("/path/to/transferred/model/")
+```
+
+The loaded model can be used either for prediction and another transferring.
+
 ### 2.3 Dealing with Imbalanced Datasets
+
+The UPSILoN-T library provides two approaches dealing with an imbalanced dataset, one is weighting a loss function and another is over-sampling. You can use these approaches as follows:
+
+```python
+# Over-sampling.
+ut.train(features, labels, balanced_sampling=True)
+
+# Weighting a loss function.
+ut.train(features, labels, weight_class=True)
+
+# Do both.
+ut.train(features, labels, balanced_sampling=True, weight_class=True)
+```
+
+For transferring a model, you can use ```ut.transfer``` rather than ```ut.train```.
+
 
 ## Citation
 
