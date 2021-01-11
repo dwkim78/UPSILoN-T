@@ -32,11 +32,11 @@ def run():
     logger.info('Convert to Pandas DataFrame.')
     pd_features = pd.DataFrame(feature_list)
 
-    logger.info('Predict Using UPSILoN-T.')
+    logger.info('Predict using UPSILoN-T.')
     ut = UPSILoNT(logger=logger)
     label, prob = ut.predict(pd_features, return_prob=True)
 
-    logger.info('Predicted Class: {0}'.format(label))
+    logger.info('Predicted class: {0}'.format(label))
     logger.info('Probability: {0}'.format(prob))
     logger.info('Corresponding classes: {0}'.format(ut.label_encoder.classes_))
     logger.info('Done.')
