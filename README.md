@@ -128,7 +128,7 @@ ut = UPSILoNT()
 ut.load("/path/to/transferred/model/")
 ```
 
-The loaded model can be used either for prediction and another transferring.
+The loaded model either can be used for prediction or can be transferred.
 
 ### 2.3 Dealing with Imbalanced Datasets
 
