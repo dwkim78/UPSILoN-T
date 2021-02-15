@@ -45,7 +45,7 @@ In addition, GPU is required to use the UPSILoN-T package.
     ```shell script
     pip install git+https://etrioss.kr/ksb/upsilon-t
     ```
-
+ 
     - Or, you can download the package, extract, enter the folder, and install as follows:
 
     ```shell script
