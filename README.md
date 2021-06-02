@@ -38,13 +38,9 @@ In addition, GPU is required to use the UPSILoN-T package.
 ## 2. Installation
 
 ```shell script
-  pip install upsilont
-```
-or
-```shell script
   pip install git+https://github.com/dwkim78/UPSILoN-T
 ```
-  
+
 ## 3. Usage
 
 You can test UPSILoN-T package as follow.
