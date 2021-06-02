@@ -141,14 +141,14 @@ For transferring a model, you can use ```ut.transfer``` rather than ```ut.train`
 
 To get the latest version of UPSILoN-T, you might want to visit [ETRI GitLab](https://etrioss.kr/ksb/upsilon-t).
 
-- Register for the ETRI OSS GitLab website, https://etrioss.kr/
-- Contact D.-W. Kim (dwk@etri.er.kr) for access permission.
-- Check if you can access to https://etrioss.kr/ksb/upsilon-t
-    - Install the package as follows.
+1. Register for the ETRI OSS GitLab website, https://etrioss.kr/
+2. Contact D.-W. Kim (dwk@etri.er.kr) for access permission.
+3. Check if you can access to https://etrioss.kr/ksb/upsilon-t
+4. Install the package as follows.
 
-    ```shell script
-    pip install git+https://etrioss.kr/ksb/upsilon-t
-    ```
+  ```shell script
+  pip install git+https://etrioss.kr/ksb/upsilon-t
+   ```
 
 ## Citation
 
