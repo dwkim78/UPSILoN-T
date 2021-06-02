@@ -141,7 +141,7 @@ ut.train(features, labels, balanced_sampling=True, weight_class=True)
 For transferring a model, you can use ```ut.transfer``` rather than ```ut.train```.
 
 
-## Note
+### Note
 
 To get the latest version of UPSILoN-T, you might want to visit [ETRI GitLab](https://etrioss.kr/ksb/upsilon-t) as follows: 
 
