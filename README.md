@@ -5,7 +5,7 @@
 </div><br>
 
 
-UPSILoN-T aims to classify periodic variable stars using deep learning and transfer learning. To get the latest version of UPSILoN-T, we recommend visiting [ETRI GitLab](https://etrioss.kr/ksb/upsilon-t). See [Installation](#2-installation) for details.
+UPSILoN-T aims to classify periodic variable stars using deep learning and transfer learning.
 
 
 ## Index
@@ -37,28 +37,14 @@ In addition, GPU is required to use the UPSILoN-T package.
 
 ## 2. Installation
 
-- Using GitHub or PIP
-   ```shell script
-    pip install git+https://github.com/dwkim78/UPSILoN-T
+```shell script
+  pip install upsilont
+```
+or
+```shell script
+  pip install git+https://github.com/dwkim78/UPSILoN-T
+```
   
-    pip install upsilont
-    ```
-- Using ETRI OSS GitLab
-  - Register for the ETRI OSS GitLab repository, https://etrioss.kr/
-  - Contact D.-W. Kim (dwk@etri.er.kr) or D. Yeo (yeody@etri.re.kr) for access permission.
-  - Check if you can access to https://etrioss.kr/ksb/upsilon-t
-      - Install the package as follows.
-  
-      ```shell script
-      pip install git+https://etrioss.kr/ksb/upsilon-t
-      ```
-   
-      - Or, you can download the package, extract, enter the folder, and install as follows:
-  
-      ```shell script
-      python setup.py install
-      ```
-
 ## 3. Usage
 
 You can test UPSILoN-T package as follow.
@@ -155,7 +141,26 @@ ut.train(features, labels, balanced_sampling=True, weight_class=True)
 For transferring a model, you can use ```ut.transfer``` rather than ```ut.train```.
 
 
+## Note
+
+To get the latest version of UPSILoN-T, you might want to visit [ETRI GitLab](https://etrioss.kr/ksb/upsilon-t) as follows: 
+
+- Register for the ETRI OSS GitLab repository, https://etrioss.kr/
+- Contact D.-W. Kim (dwk@etri.er.kr) or D. Yeo (yeody@etri.re.kr) for access permission.
+- Check if you can access to https://etrioss.kr/ksb/upsilon-t
+    - Install the package as follows.
+
+    ```shell script
+    pip install git+https://etrioss.kr/ksb/upsilon-t
+    ```
+ 
+    - Or, you can download the package, extract, enter the folder, and install as follows:
+
+    ```shell script
+    python setup.py install
+    ```
+
 ## Citation
 
-If you use UPSILoN-T in publication, we would appreciate citations to the paper, <a href="http://">in progress</a>.
+If you use UPSILoN-T in publication, we would appreciate citations to the paper, <a href="https://arxiv.org/abs/2106.00187">Kim et al. 2021</a>.
 
