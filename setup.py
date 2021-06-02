@@ -9,7 +9,7 @@ setup(
     platforms=['any'],
     packages=find_packages(),
     include_package_data=True,
-    url='',
+    url='https://github.com/dwkim78/UPSILoN-T',
     license='Apache v2.0',
     author='Dae-Won Kim',
     author_email='dwk@etri.re.kr',
